@@ -1,0 +1,13 @@
+{
+  "title": "这是英文标题",
+  "current_table": "Activating Sheet:",
+  "amount_label": "Select amount field",
+  "target_label": "Select result field",
+  "target_placeholder": "Select or create a result field",
+  "prefix_label": "Currency prefix",
+  "run": "Convert",
+  "guide": "Instructions",
+  "new_field": "Create field",
+  "new_field_placeholder": "Enter field name",
+  "field_description": " field to capital amount"
+}

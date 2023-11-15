@@ -1,0 +1,37 @@
+{
+  "name": "lark_amount_capital",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "飞书多维表格插件-数字金额转大写",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "Lark",
+    "飞书",
+    "bitable"
+  ],
+  "author": "vc1",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.2.34",
+    "@types/react-dom": "^18.2.14",
+    "@vitejs/plugin-react": "^4.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  },
+  "dependencies": {
+    "@douyinfe/semi-foundation": "^2.45.3",
+    "@douyinfe/semi-ui": "^2.45.3",
+    "@lark-base-open/js-sdk": "^0.3.4",
+    "i18next": "^23.6.0",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "nzh": "^1.0.11",
+    "react-i18next": "^13.3.1",
+    "reset-css": "^5.0.2"
+  }
+}

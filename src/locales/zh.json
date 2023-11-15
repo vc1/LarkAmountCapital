@@ -1,0 +1,13 @@
+{
+  "title": "这是英文标题",
+  "current_table": "当前表格：",
+  "amount_label": "选择金额字段",
+  "target_label": "保存结果的字段",
+  "target_placeholder": "选择或创建结果字段",
+  "prefix_label": "币种前缀",
+  "run": "转换",
+  "guide": "使用说明",
+  "new_field": "新建字段",
+  "new_field_placeholder": "输入字段名称",
+  "field_description": "字段转大写金额"
+}
