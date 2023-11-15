@@ -1,6 +1,6 @@
 {
   "title": "这是英文标题",
-  "current_table": "Activating Sheet:",
+  "current_table": "Activating Table:",
   "amount_label": "Select amount field",
   "target_label": "Select result field",
   "target_placeholder": "Select or create a result field",
