@@ -261,7 +261,7 @@ export default function App() {
         // 结果字段增加标记
         if (!fieldDescHas(fieldMeta, tag)) {
           const newContent = fieldMeta?.description?.content?.slice() ?? []
-          const text = `[“${moneyMeta!.name}”${t('field_description')}]  ${tag}\nhttps://play.feishu.cn/wiki/Xzw8wbnHyiR7TTkdG0AcaXiYnpA`
+          const text = `[“${moneyMeta!.name}”${t('field_description')}]  ${tag}`
             ; (newContent as IOpenTextSegment[])?.push({ type: IOpenSegmentType.Text, text: text })
           await table.setField(fieldMeta.id, { description: { content: newContent } })
         }
@@ -287,7 +287,7 @@ export default function App() {
       name: resultName,
       type: FieldType.Text,
       description: {
-        content: `[“${moneyMeta!.name}”${t('field_description')}]  ${tag}\nhttps://play.feishu.cn/wiki/Xzw8wbnHyiR7TTkdG0AcaXiYnpA`,
+        content: `[“${moneyMeta!.name}”${t('field_description')}]  ${tag}`,
         disableSyncToFormDesc: true
       },
     })
