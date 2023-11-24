@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 
 export default function App() {
+  const [changeTableID, setChangeTableID] = useState<string | null>(null);
   const [tableMeta, setTableMeta] = useState<ITableMeta>();
   const [viewMeta, setViewMeta] = useState<IViewMeta>();
   const [fieldMetaList, setFieldMetaList] = useState<Array<IFieldMeta>>([]);
@@ -52,9 +53,15 @@ export default function App() {
     'TWD': '新台币',
   }
 
+
+  useEffect(() => {
+    if (!changeTableID) return
+    updateTableData(changeTableID)
+  }, [changeTableID])
+
   // 更新当前表格元数据
   const updateTableData = async (id: string | null) => {
-    if (!id || id == tableMeta?.id) return
+    // 只在切换表格时重新加载
     setLoading(true)
     const tables = await bitable.base.getTableMetaList()
     const tMeta = tables.find(x => x.id == id)
@@ -71,10 +78,12 @@ export default function App() {
   // 获取当前打开的表格
   useEffect(() => {
     bitable.base.getActiveTable().then(data => {
-      updateTableData(data.id)
+      // updateTableData(data.id)
+      setChangeTableID(data.id)
     })
-    const off = bitable.base.onSelectionChange(async (event) => {
-      updateTableData(event.data.tableId)
+    const off = bitable.base.onSelectionChange((event) => {
+      // updateTableData(event.data.tableId)
+      setChangeTableID(event.data.tableId)
     })
   }, []);
 
@@ -195,6 +204,22 @@ export default function App() {
     return ''
   }
 
+  // 千分位逗号或空格，小数句号
+  const commaSeparatedReg = new RegExp(/^([a-zA-Z]+)?([\d]+[\, ]?)+(\.\d+)?$/)
+  // 千分位句号或空格，小数逗号
+  const dotSeparatedReg = new RegExp(/^([a-zA-Z]+)?([\d]+[\. ]?)+\,\d+$/)
+  // 提取货币格式的内容，兼容千分位，兼容德国等欧洲分隔方式 
+  const extractCurrencyText = (text: string): string => {
+    text = text.trim()
+    // 优先识别逗号千分位的写法
+    if (commaSeparatedReg.test(text)) {
+      return text.replaceAll(' ', '').replaceAll(',', '')
+    } else if (dotSeparatedReg.test(text)) {
+      return text.replaceAll(' ', '').replaceAll('.', '').replace(',', '.')
+    }
+    return ''
+  }
+
   const runConvert = useCallback(async () => {
     setLoading(true)
     const table = await bitable.base.getTableById(tableMeta!.id);
@@ -211,8 +236,12 @@ export default function App() {
     await allPage((x: IGetRecordsParams) => table.getRecords(x), async (records: any[]) => {
       const writeBack = records.map((x: { fields: { [x: string]: any; }; recordId: any; }) => {
         const valObj = x.fields[moneyMeta!.id]
+        // 获取单元格的值
         let text = getCellTextValue(valObj)
+        text = extractCurrencyText(text)
+        console.log(text)
         if (text) {
+          // 转换成大写形式
           const result = nzh.toMoney(text, { outSymbol: prefix })
           return {
             'recordId': x.recordId,
